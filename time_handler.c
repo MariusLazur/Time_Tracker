@@ -104,39 +104,52 @@ void printTime_Difference()
       printf("%s",the_diff);
 }
 
-
-
 /*This function is used to compute difference between two time intervals
 STATUS: DONE and TESTED*/
-CURRENT_TIME differenceBetweenTimePeriod(CURRENT_TIME start, CURRENT_TIME stop)
+CURRENT_TIME differenceBetweenTimePeriod(CURRENT_TIME t_start, CURRENT_TIME t_stop,CURRENT_DATE d_start)
 {
-
     CURRENT_TIME diff;
-    if(stop.seconds_integer > start.seconds_integer){
-        --start.minutes_integer;
-        start.seconds_integer += 60;
-    }
+    CURRENT_DATE diff_date;
 
-    diff.seconds_integer = start.seconds_integer - stop.seconds_integer;
-    diff.seconds_integer = abs(diff.seconds_integer);
-    if(stop.minutes_integer > start.minutes_integer){
-        --start.hour_integer;
-        start.minutes_integer += 60;
-    }
 
-    diff.minutes_integer = start.minutes_integer - stop.minutes_integer;
-    diff.minutes_integer = abs(diff.minutes_integer);
-    diff.hour_integer = start.hour_integer - stop.hour_integer;
-    diff.hour_integer = abs(diff.hour_integer);
-    if(stop.hour_integer < start.hour_integer)
+    //DIFF from hours
+    if(t_start.hour_integer > t_stop.hour_integer)
     {
-        diff.hour_integer = 24 - diff.hour_integer;
+        diff.hour_integer = t_start.hour_integer - t_stop.hour_integer;
+
+    }else if(t_start.hour_integer < t_stop.hour_integer)
+    {
+        diff.hour_integer = t_stop.hour_integer - t_start.hour_integer;
+    }else
+    {
+        diff.hour_integer = 0;
+    }
+    //DIFF from minutes
+    if(t_start.minutes_integer > t_stop.minutes_integer)
+    {
+        diff.minutes_integer = t_start.minutes_integer - t_stop.minutes_integer;
+
+    }else if(t_start.minutes_integer < t_stop.minutes_integer)
+    {
+        diff.minutes_integer = t_stop.minutes_integer - t_start.minutes_integer;
+    }else
+    {
+        diff.minutes_integer = 0;
+    }
+
+    //DIFF from seconds
+    if(t_start.seconds_integer > t_stop.seconds_integer)
+    {
+        diff.seconds_integer = t_start.seconds_integer - t_stop.seconds_integer;
+
+    }else if(t_start.seconds_integer < t_stop.seconds_integer)
+    {
+        diff.seconds_integer = t_stop.seconds_integer - t_start.seconds_integer;
+    }else
+    {
+        diff.seconds_integer = 0;
     }
     return diff;
-    printf("%d",diff.hour_integer);
-    printf("%d",diff.minutes_integer);
-    printf("%d",diff.seconds_integer);
-
 }
 
 /*This function read from the file char by char
